@@ -1,4 +1,4 @@
-module javafx11.multipantalla {
+module javafx {
 
 
     requires javafx.graphics;
@@ -14,15 +14,15 @@ module javafx11.multipantalla {
     requires io.vavr;
 
 
-
-
+    exports dao.imp;
+    exports model;
     exports ui.main to javafx.graphics;
     exports ui.pantallas.principal;
     exports ui.pantallas.login;
     exports ui.pantallas.common;
     exports ui.pantallas.bienvenida;
+    opens ui.pantallas.login;
 
-    opens ui.pantallas.login to  javafx.fxml;
     opens ui.pantallas.principal;
     opens ui.main;
     opens css;

@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import lombok.extern.log4j.Log4j2;
+import model.Credentials;
 import ui.pantallas.common.BasePantallaController;
 import ui.pantallas.common.Pantallas;
 
@@ -20,7 +21,7 @@ import java.util.Optional;
 
 @Log4j2
 public class PrincipalController {
-
+private Credentials actualUser;
     @FXML
     private Menu menuHelp;
     // objeto especial para DI
@@ -100,11 +101,11 @@ public class PrincipalController {
 
 
 
-    /*public void logout() {
+    public void logout() {
         actualUser = null;
         menuPrincipal.setVisible(false);
         cargarPantalla(Pantallas.LOGIN);
-    }*/
+    }
 
     private void cambioPantalla(Pane pantallaNueva) {
 
@@ -159,7 +160,7 @@ public class PrincipalController {
 
     public void initialize() {
         menuPrincipal.setVisible(false);
-        //cargarPantalla(Pantallas.LOGIN);
+        cargarPantalla(Pantallas.LOGIN);
 
     }
 
@@ -245,15 +246,36 @@ public class PrincipalController {
     }
 
     //evento de otra pantalla
-    /*public void onLoginHecho(Usuario usuario) {
+    public void onLoginDone(Credentials usuario) {
         actualUser = usuario;
         menuPrincipal.setVisible(true);
-        if (actualUser.getNombre().equals("admin")) {
-            menuHelp.setVisible(false);
-        }
 
-        cargarPantalla(Pantallas.PANTALLA1);
-    }*/
+            //menuHelp.setVisible(false);
+
+
+
+    }
+
+    public void menuCustomers(ActionEvent actionEvent) {
+        switch (((MenuItem)actionEvent.getSource()).getId())
+        {
+            case "menuItemPantalla1":
+                cargarPantalla(Pantallas.PANTALLA1);
+                break;
+            case "menuItemListado":
+                cargarPantalla(Pantallas.LISTADO);
+                break;
+            case "menuItemPantallaNueva":
+                cargarPantalla(Pantallas.PANTALLANUEVA);
+                break;
+            case "menuItemLogout":
+                //logout();
+                break;
+        }
+    }
+
+    public void menuOrders(ActionEvent actionEvent) {
+    }
 
     /*public void onSeleccionCromo(Cromo p) {
         this.cromoSeleccionado = p;

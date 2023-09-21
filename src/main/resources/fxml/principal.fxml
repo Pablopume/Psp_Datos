@@ -25,28 +25,27 @@
     <top>
         <MenuBar fx:id="menuPrincipal">
             <menus>
-                <Menu fx:id="menuFile" mnemonicParsing="false" text="File">
+                <Menu fx:id="menuOptions" mnemonicParsing="false" text="Options">
                     <items>
-                        <MenuItem fx:id="menuItemNew" mnemonicParsing="false" text="New" />
-                        <MenuItem fx:id="menuItemPantalla1" mnemonicParsing="false" onAction="#menuClick" text="Pantalla1" />
-                        <MenuItem fx:id="menuItemListado" mnemonicParsing="false" onAction="#menuClick" text="listado" />
-                        <MenuItem fx:id="menuItemPantallaNueva" mnemonicParsing="false"  onAction="#menuClick" text="pantallaNueva" />
                         <MenuItem fx:id="menuItemLogout" mnemonicParsing="false" onAction="#menuClick" text="Logout" />
                         <MenuItem fx:id="menuItemExit" mnemonicParsing="false" onAction="#exit" text="Exit" />
                     </items>
                 </Menu>
-                <Menu fx:id="menuEdit" mnemonicParsing="false" text="Edit">
+                <Menu fx:id="menuCustomers" mnemonicParsing="false" text="Customers">
                     <items>
-                        <MenuItem fx:id="menuItemUndo" mnemonicParsing="false" onAction="#cambiarcss" text="Undo" />
-                        <MenuItem fx:id="menuItemRedo" mnemonicParsing="false" text="Redo" />
-                        <MenuItem fx:id="menuItemCut" mnemonicParsing="false" text="Cut" />
-                        <MenuItem fx:id="menuItemCopy" mnemonicParsing="false" text="Copy" />
-                        <MenuItem fx:id="menuItemPaste" mnemonicParsing="false" text="Paste" />
-                        <MenuItem fx:id="menuItemDelete" mnemonicParsing="false" text="Delete" />
-                        <MenuItem fx:id="menuItemSelectAll" mnemonicParsing="false" text="Select All" />
+                        <MenuItem fx:id="showCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Show Customers" />
+                        <MenuItem fx:id="addCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Add Customers" />
+                        <MenuItem fx:id="deleteCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Delete Customers" />
+                        <MenuItem fx:id="updateCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Update Customers" />
                     </items>
                 </Menu>
-                <Menu fx:id="menuHelp" mnemonicParsing="false" onAction="#help" onShowing="#help" text="Help">
+                <Menu fx:id="menuOrders" mnemonicParsing="false" text="Orders">
+                    <items>
+                        <MenuItem fx:id="showOrders" mnemonicParsing="false" onAction="#menuOrders" text="Show Customers" />
+                        <MenuItem fx:id="addOrders" mnemonicParsing="false" onAction="#menuOrders" text="Add Customers" />
+                        <MenuItem fx:id="deleteOrders" mnemonicParsing="false" onAction="#menuOrders" text="Delete Customers" />
+                        <MenuItem fx:id="updateOrders" mnemonicParsing="false" onAction="#menuOrders" text="Update Customers" />
+                    </items>
                 </Menu>
             </menus>
         </MenuBar>
