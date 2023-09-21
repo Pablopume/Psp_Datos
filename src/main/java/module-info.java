@@ -22,7 +22,7 @@ module javafx {
     exports ui.pantallas.common;
     exports ui.pantallas.bienvenida;
     opens ui.pantallas.login;
-
+    exports ui.pantallas.customers;
     opens ui.pantallas.principal;
     opens ui.main;
     opens css;

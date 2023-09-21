@@ -229,16 +229,16 @@ private Credentials actualUser;
         switch (((MenuItem)actionEvent.getSource()).getId())
         {
             case "menuItemPantalla1":
-                cargarPantalla(Pantallas.PANTALLA1);
+                cargarPantalla(Pantallas.PANTALLACUSTOMERS);
                 break;
-            case "menuItemListado":
-                cargarPantalla(Pantallas.LISTADO);
-                break;
+     //       case "menuItemListado":
+       //         cargarPantalla(Pantallas.PANTALLACUSTOMERS;
+         //       break;
             case "menuItemPantallaNueva":
                 cargarPantalla(Pantallas.PANTALLANUEVA);
                 break;
             case "menuItemLogout":
-                //logout();
+                logout();
                 break;
         }
 
@@ -257,20 +257,11 @@ private Credentials actualUser;
     }
 
     public void menuCustomers(ActionEvent actionEvent) {
-        switch (((MenuItem)actionEvent.getSource()).getId())
-        {
-            case "menuItemPantalla1":
-                cargarPantalla(Pantallas.PANTALLA1);
-                break;
-            case "menuItemListado":
-                cargarPantalla(Pantallas.LISTADO);
-                break;
-            case "menuItemPantallaNueva":
-                cargarPantalla(Pantallas.PANTALLANUEVA);
-                break;
-            case "menuItemLogout":
-                //logout();
-                break;
+        switch (((MenuItem) actionEvent.getSource()).getId()) {
+            case "showCustomers" -> cargarPantalla(Pantallas.PANTALLACUSTOMERS);
+            case "addCustomers" -> cargarPantalla(Pantallas.PANTALLAADD);
+            case "deleteCustomers" -> cargarPantalla(Pantallas.PANTALLAREMOVE);
+            case "updateCustomers" -> cargarPantalla(Pantallas.PANTALLANUEVA);
         }
     }
 

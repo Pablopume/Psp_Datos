@@ -11,7 +11,7 @@ import ui.pantallas.common.BasePantallaController;
 public class LoginController extends BasePantallaController {
     public PasswordField txtPassword;
     public TextField txtUserName;
-    private LoginDAO daoLogin;
+    private final LoginDAO daoLogin;
     @Inject
     LoginController(LoginDAO daoLogin){
         this.daoLogin=daoLogin;
