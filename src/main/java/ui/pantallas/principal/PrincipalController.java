@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 @Log4j2
-public class PrincipalController {
+public class    PrincipalController {
 private Credentials actualUser;
     @FXML
     private Menu menuHelp;
