@@ -16,8 +16,9 @@ public class ServicesCustomerImpl implements ServicesCustomer {
     public ServicesCustomerImpl(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
+
     @Override
-    public List<Customer> getAll(){
+    public List<Customer> getAll() {
         return customerDAO.getAll();
     }
 }
