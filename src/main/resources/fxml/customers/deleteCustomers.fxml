@@ -3,8 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.pantallas.customers.DeleteCustomersController">
-    <TableView fx:id="customersTable" layoutX="220.0" layoutY="58.0" prefHeight="331.0" prefWidth="594.0">
+<AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.pantallas.customers.deletecustomer.DeleteCustomersController">
+    <TableView fx:id="customersTable" layoutX="43.0" layoutY="36.0" prefHeight="331.0" prefWidth="594.0">
         <columns>
             <TableColumn fx:id="idCustomerColumn" prefWidth="33.0" text="Id" />
             <TableColumn fx:id="nameCustomerColumn" prefWidth="95.0" text="First name" />
@@ -14,6 +14,14 @@
             <TableColumn fx:id="dateOfBirthdayColumn" prefWidth="125.0" text="Date of Birthday" />
         </columns>
     </TableView>
-   <Button layoutX="851.0" layoutY="58.0" mnemonicParsing="false" text="Delete Customer" />
+    <TableView fx:id="ordersCustomer" layoutX="782.0" layoutY="47.0" prefHeight="279.0" prefWidth="254.0">
+        <columns>
+            <TableColumn fx:id="product" prefWidth="80.0" text="name" />
+            <TableColumn fx:id="idProduct" prefWidth="80.0" text="id" />
+            <TableColumn fx:id="price" prefWidth="94.0" text="price" />
+
+        </columns>
+    </TableView>
+   <Button fx:id="buttonCostumer" layoutX="43.0" layoutY="396.0" mnemonicParsing="false" onAction="#deleteCustomer" text="Delete Customer" />
 
 </AnchorPane>

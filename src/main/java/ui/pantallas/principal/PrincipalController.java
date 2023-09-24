@@ -261,11 +261,17 @@ private Credentials actualUser;
             case "showCustomers" -> cargarPantalla(Pantallas.PANTALLACUSTOMERS);
             case "addCustomers" -> cargarPantalla(Pantallas.PANTALLAADD);
             case "deleteCustomers" -> cargarPantalla(Pantallas.PANTALLAREMOVE);
-            case "updateCustomers" -> cargarPantalla(Pantallas.PANTALLANUEVA);
+            case "updateCustomers" -> cargarPantalla(Pantallas.PANTALLAEDIT);
         }
     }
 
     public void menuOrders(ActionEvent actionEvent) {
+        switch (((MenuItem) actionEvent.getSource()).getId()) {
+            case "showOrders" -> cargarPantalla(Pantallas.PANTALLAORDERS);
+            case "addOrders" -> cargarPantalla(Pantallas.ADDORDERS);
+            case "deleteOrders" -> cargarPantalla(Pantallas.REMOVEORDERS);
+            case "updateOrders" -> cargarPantalla(Pantallas.EDITORDERS);
+        }
     }
 
     /*public void onSeleccionCromo(Cromo p) {

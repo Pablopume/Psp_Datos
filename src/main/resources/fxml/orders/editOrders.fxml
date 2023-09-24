@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.pantallas.orders.editorder.EditOrderController">
+    <TextField fx:id="idTxtField" layoutX="28.0" layoutY="79.0" promptText="id" />
+    <TextField fx:id="custIdField" layoutX="27.0" layoutY="172.0" promptText="Customer's Id" />
+
+    <TextField fx:id="tableFIeld" layoutX="27.0" layoutY="224.0" promptText="Table Id" />
+    <DatePicker fx:id="dateField" layoutX="27.0" layoutY="127.0" prefHeight="25.0" prefWidth="159.0" promptText="Order's Date" />
+    <Button layoutX="27.0" layoutY="284.0" mnemonicParsing="false" onAction="#editOrder" text="Update Customer" />
+    <TableView fx:id="customersTable" layoutX="284.0" layoutY="38.0" prefHeight="343.0" prefWidth="290.0">
+        <columns>
+
+            <TableColumn fx:id="idOrder" prefWidth="33.0" text="Id" />
+            <TableColumn fx:id="orderDate" prefWidth="95.0" text="Order's date" />
+            <TableColumn fx:id="customerId" prefWidth="84.0" text="Customer Id" />
+            <TableColumn fx:id="tableId" prefWidth="77.0" text="Table Id" />
+
+        </columns>
+    </TableView>
+
+    <TableView layoutX="680.0" layoutY="39.0" prefHeight="343.0" prefWidth="304.0">
+        <columns>
+            <TableColumn prefWidth="33.0" text="Id" />
+            <TableColumn prefWidth="95.0" text="Name" />
+            <TableColumn prefWidth="84.0" text="Price" />
+            <TableColumn prefWidth="77.0" text="Description" />
+        </columns>
+    </TableView>
+
+
+
+</AnchorPane>

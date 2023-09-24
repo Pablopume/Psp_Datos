@@ -33,7 +33,7 @@
                 </Menu>
                 <Menu fx:id="menuCustomers" mnemonicParsing="false" text="Customers">
                     <items>
-                        <MenuItem fx:id="showCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Show Customers" />
+                        <MenuItem fx:id="showCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="List Customers" />
                         <MenuItem fx:id="addCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Add Customers" />
                         <MenuItem fx:id="deleteCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Delete Customers" />
                         <MenuItem fx:id="updateCustomers" mnemonicParsing="false" onAction="#menuCustomers" text="Update Customers" />
@@ -41,10 +41,10 @@
                 </Menu>
                 <Menu fx:id="menuOrders" mnemonicParsing="false" text="Orders">
                     <items>
-                        <MenuItem fx:id="showOrders" mnemonicParsing="false" onAction="#menuOrders" text="Show Customers" />
-                        <MenuItem fx:id="addOrders" mnemonicParsing="false" onAction="#menuOrders" text="Add Customers" />
-                        <MenuItem fx:id="deleteOrders" mnemonicParsing="false" onAction="#menuOrders" text="Delete Customers" />
-                        <MenuItem fx:id="updateOrders" mnemonicParsing="false" onAction="#menuOrders" text="Update Customers" />
+                        <MenuItem fx:id="showOrders" mnemonicParsing="false" onAction="#menuOrders" text="List Orders" />
+                        <MenuItem fx:id="addOrders" mnemonicParsing="false" onAction="#menuOrders" text="Add Orders" />
+                        <MenuItem fx:id="deleteOrders" mnemonicParsing="false" onAction="#menuOrders" text="Delete Orders" />
+                        <MenuItem fx:id="updateOrders" mnemonicParsing="false" onAction="#menuOrders" text="Update Orders" />
                     </items>
                 </Menu>
             </menus>

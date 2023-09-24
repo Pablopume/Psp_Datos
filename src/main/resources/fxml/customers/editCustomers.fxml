@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.pantallas.customers.EditCustomersControllers">
+<AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.pantallas.customers.editcustomers.EditCustomersControllers">
+    <TextField fx:id="idTxtField" layoutX="28.0" layoutY="79.0" promptText="id" />
+    <TextField fx:id="nameField" layoutX="28.0" layoutY="125.0" promptText="Name" />
+    <TextField fx:id="surnameField" layoutX="27.0" layoutY="170.0" promptText="Surname" />
+
+    <TextField fx:id="mailField" layoutX="27.0" layoutY="224.0" promptText="Email" />
+    <TextField fx:id="phoneField" layoutX="27.0" layoutY="267.0" promptText="Phone" />
+    <DatePicker fx:id="dobField" layoutX="28.0" layoutY="307.0" promptText="Date of Birth" />
+    <Button layoutX="27.0" layoutY="352.0" mnemonicParsing="false" onAction="#editClient" text="Update Customer" />
     <TableView fx:id="customersTable" layoutX="220.0" layoutY="58.0" prefHeight="331.0" prefWidth="594.0">
         <columns>
             <TableColumn fx:id="idCustomerColumn" prefWidth="33.0" text="Id" />
@@ -18,5 +23,6 @@
         </columns>
     </TableView>
 
-</AnchorPane>
 
+
+</AnchorPane>
