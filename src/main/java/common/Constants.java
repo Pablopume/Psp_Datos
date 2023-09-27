@@ -2,7 +2,7 @@ package common;
 
 public class Constants {
     public static final String ROOT = "root";
-    public static final String ROOT1 = "root";
+    public static final String ROOT1 = "2dam";
     public static final String IZAN = "Izan";
     public static final String RUSSEL = "Russel";
     public static final String MAIL = "rusa@gmail.com";

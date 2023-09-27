@@ -1,4 +1,4 @@
-package dao.imp;
+package dao.imp.staticlists;
 
 import common.Constants;
 import dao.CustomerDAO;
