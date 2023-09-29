@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAOST implements CustomerDAO {
+public class CustomerDAOST  {
     private final List<Customer> listCust;
 
     public CustomerDAOST() {
@@ -18,7 +18,7 @@ public class CustomerDAOST implements CustomerDAO {
         this.listCust.add(new Customer(3, Constants.AUGUSTUS, Constants.GLOOP, Constants.MAIL2, Constants.NUMBER2, LocalDate.of(2001, 12, 31)));
     }
 
-    @Override
+
     public List<Customer> getAll() {
         return listCust;
     }

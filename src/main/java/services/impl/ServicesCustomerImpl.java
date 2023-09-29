@@ -2,6 +2,7 @@ package services.impl;
 
 import dao.CustomerDAO;
 import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import jakarta.inject.Singleton;
 import model.Customer;
 import services.ServicesCustomer;

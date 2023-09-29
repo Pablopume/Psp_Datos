@@ -1,22 +1,34 @@
 package dao.imp.files;
 
 import dao.CustomerDAO;
-import model.Customer;
+import jakarta.inject.Inject;
 
+import lombok.extern.log4j.Log4j2;
+import model.Customer;
+import configuration.Configuration;
 import java.io.IOException;
-import java.lang.module.Configuration;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
+@Log4j2
 public class CustomerDAOFiles implements CustomerDAO {
-    private List<Customer> listCustomer;
-    private Configuration config;
+
+
+
     @Override
     public List<Customer> getAll() {
-        return listCustomer;
+        Path customerFile = Paths.get(Configuration.getInstance().getProperty("pathCustomers"));
+        ArrayList<Customer> customers = new ArrayList<>();
+        try {
+            List<String> fileContent = Files.readAllLines(customerFile);
+            fileContent.forEach(line ->customers.add(new Customer(line)));
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+        }
+        return customers;
     }
     public static void createFile(){
         String nombreArchivo = "data/listaElementos";

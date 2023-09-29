@@ -21,7 +21,7 @@ module javafx {
     exports ui.screens.customers.editcustomers;
     exports ui.screens.orders.listorders;
     exports ui.screens.orders.addorder;
-
+    exports configuration;
     exports common;
     opens ui.screens.common;
     opens ui.screens.login;
