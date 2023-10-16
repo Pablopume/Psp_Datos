@@ -58,7 +58,6 @@ public class AddCustomersController extends BaseScreenController {
                         customersTable.getItems().setAll(newValue.getListCustomers());
                     }
                 }
-
         );
         addCustomerViewModel.voidState();
     }

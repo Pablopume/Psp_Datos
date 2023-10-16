@@ -4,14 +4,13 @@ import common.Constants;
 import jakarta.inject.Inject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Order;
 import ui.screens.common.BaseScreenController;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class AddOrderController extends BaseScreenController {
     @FXML
@@ -24,7 +23,18 @@ public class AddOrderController extends BaseScreenController {
     @FXML
     public TableColumn<Order, Integer> customerId;
     @FXML
-    public TableColumn<Order, String > tableId;
+    public TableColumn<Order, Integer> tableId;
+
+    @FXML
+    public ComboBox<String> orderId;
+    @FXML
+    public DatePicker datePicker;
+    @FXML
+    public ComboBox<String> idCustomer;
+    @FXML
+    public ComboBox<String> table_id;
+
+
     @Inject
     AddOrderViewModel addOrderViewModel;
 
@@ -44,9 +54,7 @@ public class AddOrderController extends BaseScreenController {
                         customersTable.getItems().clear();
                         customersTable.getItems().setAll(newValue.getListOrders());
                     }
-
                 }
-
         );
         addOrderViewModel.voidState();
 
@@ -57,7 +65,12 @@ public class AddOrderController extends BaseScreenController {
         addOrderViewModel.loadState();
     }
 
-    public void addeOrder(ActionEvent actionEvent) {
+    public void addOrder(ActionEvent actionEvent) {
+        int selectedOrderId = Integer.parseInt(orderId.getValue());
+        int selectedCustomerId = Integer.parseInt(idCustomer.getValue());
+        int selectedTableId = Integer.parseInt(table_id.getValue());
+        addOrderViewModel.getServices().writeToFile(addOrderViewModel.getServices().createOrder(selectedOrderId, LocalDateTime.now(), selectedCustomerId, selectedTableId));
+        customersTable.getItems().add(addOrderViewModel.getServices().createOrder(selectedOrderId, LocalDateTime.now(), selectedCustomerId, selectedTableId));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(Constants.ORDER_ADDED);
         alert.setHeaderText(null);

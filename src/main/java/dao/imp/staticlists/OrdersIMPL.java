@@ -1,4 +1,4 @@
-package dao.imp;
+package dao.imp.staticlists;
 
 import dao.OrdersDAO;
 import model.Order;
@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrdersIMPL implements OrdersDAO {
+public class OrdersIMPL {
     private final List<Order> listOrd;
 
     public OrdersIMPL() {

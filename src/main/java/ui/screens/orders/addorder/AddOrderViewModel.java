@@ -5,6 +5,7 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import lombok.Getter;
 import model.Order;
 import services.ServicesOrder;
 
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddOrderViewModel {
+    @Getter
     private final ServicesOrder services;
     private final ObjectProperty<AddOrderState> state;
 
@@ -25,7 +27,10 @@ public class AddOrderViewModel {
     public void voidState() {
         state.set(new AddOrderState(null, null));
     }
-    public ReadOnlyObjectProperty<AddOrderState> getState(){return state;}
+
+    public ReadOnlyObjectProperty<AddOrderState> getState() {
+        return state;
+    }
 
     public void loadState() {
         List<Order> listOrd = services.getAll();
@@ -33,8 +38,8 @@ public class AddOrderViewModel {
             state.set(new AddOrderState(null, Constants.THERE_ARE_NO_ORDERS));
 
 
-        }else {
-            state.set(new AddOrderState(listOrd,null));
+        } else {
+            state.set(new AddOrderState(listOrd, null));
         }
     }
 }
