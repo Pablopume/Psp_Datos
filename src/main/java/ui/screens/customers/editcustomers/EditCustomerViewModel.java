@@ -4,12 +4,13 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import lombok.Data;
 import model.Customer;
 import services.ServicesCustomer;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class EditCustomerViewModel {
     private final ServicesCustomer services;
     private final ObjectProperty<EditCustomerState> state;
@@ -26,7 +27,7 @@ public class EditCustomerViewModel {
     public void  voidState(){state.set(new EditCustomerState(null,null));}
 
     public void loadState() {
-        List<Customer> listCust = services.getAll();
+        List<Customer> listCust = services.getAll().get();
         if (listCust.isEmpty()) {
             state.set(new EditCustomerState(null,"There are no customers"));
 

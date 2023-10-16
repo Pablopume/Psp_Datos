@@ -16,6 +16,7 @@ module javafx {
     requires moshi;
     requires okhttp3;
     requires jakarta.xml.bind;
+    requires io.vavr;
     exports model.xml;
     exports ui.screens.orders.deleteorders;
     exports services.impl;
@@ -51,4 +52,5 @@ module javafx {
     exports dao;
     exports dao.imp.staticlists;
     exports dao.imp.files;
+    exports model.errors;
 }

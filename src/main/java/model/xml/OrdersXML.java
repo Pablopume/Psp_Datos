@@ -9,13 +9,14 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
 @XmlRootElement(name = "orders")
 @XmlAccessorType(XmlAccessType.FIELD)
 @AllArgsConstructor
 public class OrdersXML {
-@XmlElement(name = "order")
-private List<OrderXML> orderList;
+    @XmlElement(name = "order")
+    private List<OrderXML> orderList;
 
     public OrdersXML() {
         this.orderList = new ArrayList<>();

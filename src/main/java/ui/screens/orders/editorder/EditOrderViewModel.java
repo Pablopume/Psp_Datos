@@ -5,18 +5,22 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import lombok.Data;
 import model.Order;
+import services.ServicesDaoXML;
 import services.ServicesOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class EditOrderViewModel {
+    private final ServicesDaoXML servicesDaoXML;
     private final ServicesOrder services;
     private final ObjectProperty<EditOrderState> state;
 
     @Inject
-    public EditOrderViewModel(ServicesOrder services) {
+    public EditOrderViewModel(ServicesDaoXML servicesDaoXML, ServicesOrder services) {
+        this.servicesDaoXML = servicesDaoXML;
         this.state = new SimpleObjectProperty<>(new EditOrderState(new ArrayList<>(), null));
         this.services = services;
 
@@ -29,7 +33,7 @@ public class EditOrderViewModel {
     public ReadOnlyObjectProperty<EditOrderState> getState(){return state;}
 
     public void loadState() {
-        List<Order> listOrd = services.getAll();
+        List<Order> listOrd = services.getAll().get();
         if (listOrd.isEmpty()) {
             state.set(new EditOrderState(null, Constants.THERE_ARE_NO_ORDERS));
 

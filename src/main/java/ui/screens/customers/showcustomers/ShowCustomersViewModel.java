@@ -25,7 +25,7 @@ public class ShowCustomersViewModel {
 public void  voidState(){state.set(new ShowCustomersState(null,null));}
 public ReadOnlyObjectProperty<ShowCustomersState> getState(){return state;}
     public void loadState() {
-        List<Customer> listCust = services.getAll();
+        List<Customer> listCust = services.getAll().get();
         if (listCust.isEmpty()) {
             state.set(new ShowCustomersState(null, Constants.THERE_ARE_NO_CUSTOMERS));
 

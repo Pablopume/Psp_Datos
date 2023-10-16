@@ -1,8 +1,10 @@
 package services.impl;
 
 import dao.OrdersDAO;
+import io.vavr.control.Either;
 import jakarta.inject.Inject;
 import model.Order;
+import model.errors.OrderError;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -19,11 +21,13 @@ import java.util.List;
 
 public class ServicesOrderImpl implements ServicesOrder {
     private OrdersDAO ordersDAO;
+
     @Inject
     public ServicesOrderImpl(OrdersDAO ordersDAO) {
         this.ordersDAO = ordersDAO;
     }
-    public List<Order> getAll() {
+
+    public Either<OrderError, List<Order>> getAll() {
         return ordersDAO.getAll();
     }
 
@@ -32,16 +36,22 @@ public class ServicesOrderImpl implements ServicesOrder {
         ordersDAO.save(order);
     }
 
-
-    public Order createOrder(LocalDateTime date, int customer_id, int table_id){
-        return ordersDAO.save(date,customer_id,table_id);
+    @Override
+    public void updateOrder(int id, Order order) {
+        ordersDAO.updateOrder(id, order);
     }
-    public List<Order> filteredList(int id){
+
+
+    public Either<OrderError, Order> createOrder(LocalDateTime date, int customer_id, int table_id) {
+        return ordersDAO.save(date, customer_id, table_id);
+    }
+
+    public Either<OrderError, List<Order>> filteredList(int id) {
         return ordersDAO.get(id);
     }
 
     @Override
-    public List<Order> filteredListDate(LocalDate localDate) {
+    public Either<OrderError, List<Order>> filteredListDate(LocalDate localDate) {
         return ordersDAO.get(localDate);
     }
 
@@ -49,6 +59,7 @@ public class ServicesOrderImpl implements ServicesOrder {
     public void delete(int idToDelete) {
         ordersDAO.delete(idToDelete);
     }
+
     public void deleteOrders(List<Order> listOrd, int id) {
         listOrd.forEach(order -> {
             if (id == order.getCustomer_id()) {
@@ -63,11 +74,7 @@ public class ServicesOrderImpl implements ServicesOrder {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document doc = builder.parse("data/orders.xml");
-
-
             Element root = doc.getDocumentElement();
-
-
             NodeList orderList = root.getElementsByTagName("order");
 
 
@@ -87,5 +94,9 @@ public class ServicesOrderImpl implements ServicesOrder {
         return false;
     }
 
+    @Override
+    public Either<OrderError, Order> addOrder(int id, LocalDateTime date, int customer_id, int table_id) {
+        return ordersDAO.addOrder(id, date, customer_id, table_id);
+    }
 
 }

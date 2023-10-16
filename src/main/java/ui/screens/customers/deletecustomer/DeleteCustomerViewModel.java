@@ -37,7 +37,7 @@ public class DeleteCustomerViewModel {
     }
 
     public void loadState() {
-        List<Customer> listCust = services.getAll();
+        List<Customer> listCust = services.getAll().get();
         if (listCust.isEmpty()) {
             state.set(new DeleteCustomerState(null, Constants.THERE_ARE_NO_CUSTOMERS2));
         } else {

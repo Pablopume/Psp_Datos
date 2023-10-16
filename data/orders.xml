@@ -20,18 +20,7 @@
         </order_item>
     </order>
     <order>
-        <id>2</id>
-        <order_item>
-            <menu_item>Hamburger</menu_item>
-            <quantity>2</quantity>
-        </order_item>
-        <order_item>
-            <menu_item>Coffee</menu_item>
-            <quantity>2</quantity>
-        </order_item>
-    </order>
-    <order>
-        <id>4</id>
+        <id>3</id>
         <order_item>
             <menu_item>Apple</menu_item>
             <quantity>2</quantity>
@@ -45,6 +34,42 @@
         </order_item>
         <order_item>
             <menu_item>Croissant</menu_item>
+            <quantity>2</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>8</id>
+        <order_item>
+            <menu_item>Fish</menu_item>
+            <quantity>3</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>9</id>
+        <order_item>
+            <menu_item>Croissant</menu_item>
+            <quantity>8</quantity>
+        </order_item>
+        <order_item>
+            <menu_item>Cake</menu_item>
+            <quantity>2</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>4</id>
+        <order_item>
+            <menu_item>Cake</menu_item>
+            <quantity>4</quantity>
+        </order_item>
+        <order_item>
+            <menu_item>Fish</menu_item>
+            <quantity>2</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>5</id>
+        <order_item>
+            <menu_item>Pineapple</menu_item>
             <quantity>2</quantity>
         </order_item>
     </order>

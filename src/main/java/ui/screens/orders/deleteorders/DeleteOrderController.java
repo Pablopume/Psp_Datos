@@ -10,7 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Order;
 import model.xml.OrderItemXML;
-import model.xml.OrderXML;
 import ui.screens.common.BaseScreenController;
 
 import java.io.IOException;
@@ -60,7 +59,7 @@ public class DeleteOrderController extends BaseScreenController {
         ordersTable.setOnMouseClicked(event -> {
             Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
             try {
-                ordersXMLTable.getItems().setAll(deleteOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()));
+                ordersXMLTable.getItems().setAll(deleteOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()).get());
             } catch (JAXBException | IOException e) {
                 throw new RuntimeException(e);
             }
@@ -80,17 +79,17 @@ public class DeleteOrderController extends BaseScreenController {
 
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirm delete");
-            confirmationAlert.setHeaderText("Delete customer");
-            confirmationAlert.setContentText("Are you sure you want to delete this Customer?");
+            confirmationAlert.setHeaderText("Delete order");
+            confirmationAlert.setContentText("Are you sure you want to delete this order?");
             Optional<ButtonType> result = confirmationAlert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 deleteOrderViewModel.getServices().delete(selectedOrder.getId());
                 ObservableList<Order> orders = ordersTable.getItems();
                 orders.remove(selectedOrder);
                 Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-                successAlert.setTitle("Customer deleted");
+                successAlert.setTitle("Order deleted");
                 successAlert.setHeaderText(null);
-                successAlert.setContentText("The Customer has been deleted");
+                successAlert.setContentText("The Order has been deleted");
                 successAlert.showAndWait();
             }
         } else if (deleteOrderViewModel.getServices().orderContained(selectedOrder.getId())) {
@@ -100,7 +99,7 @@ public class DeleteOrderController extends BaseScreenController {
             alert.setContentText("There are order items created in that order, do you want to delete them?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                deleteOrderViewModel.getServices().deleteOrders(deleteOrderViewModel.getServices().getAll(), selectedOrder.getId());
+                deleteOrderViewModel.getServices().deleteOrders(deleteOrderViewModel.getServices().getAll().get(), selectedOrder.getId());
                 deleteOrderViewModel.getServicesDaoXML().delete(selectedOrder.getId());
                 ObservableList<OrderItemXML> orderItemXMLS=ordersXMLTable.getItems();
                 orderItemXMLS.clear();

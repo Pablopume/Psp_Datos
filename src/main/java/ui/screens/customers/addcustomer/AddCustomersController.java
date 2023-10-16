@@ -67,8 +67,8 @@ public class AddCustomersController extends BaseScreenController {
 
 
     public void addClient(ActionEvent actionEvent) {
-        addCustomerViewModel.getServices().save(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()));
-        customersTable.getItems().add(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()));
+        customersTable.getItems().add(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()).get());
+        addCustomerViewModel.getServices().save(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()).get());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(Constants.USER_CREATED);
         alert.setHeaderText(null);

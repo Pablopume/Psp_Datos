@@ -71,7 +71,7 @@ public class DeleteCustomersController extends BaseScreenController {
     public void deleteCustomer(ActionEvent actionEvent) {
         SelectionModel<Customer> selectionModel = customersTable.getSelectionModel();
         Customer selectedCustomer = selectionModel.getSelectedItem();
-        if (!deleteCustomerViewModel.getServices().orderContained(selectedCustomer.getId(), deleteCustomerViewModel.getServiceOrder().getAll())) {
+        if (!deleteCustomerViewModel.getServices().orderContained(selectedCustomer.getId(), deleteCustomerViewModel.getServiceOrder().getAll().get()).get()) {
 
             Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
             confirmationAlert.setTitle("Confirm delete");
@@ -89,14 +89,14 @@ public class DeleteCustomersController extends BaseScreenController {
                 successAlert.setContentText("The Customer has been deleted");
                 successAlert.showAndWait();
             }
-        } else if (deleteCustomerViewModel.getServices().orderContained(selectedCustomer.getId(), deleteCustomerViewModel.getServiceOrder().getAll())) {
+        } else if (deleteCustomerViewModel.getServices().orderContained(selectedCustomer.getId(), deleteCustomerViewModel.getServiceOrder().getAll().get()).get()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("You can't delete");
             alert.setHeaderText(null);
             alert.setContentText("There are orders created in that customer, do you want to delete them?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
-                deleteCustomerViewModel.getServiceOrder().deleteOrders(deleteCustomerViewModel.getServiceOrder().getAll(), selectedCustomer.getId());
+                deleteCustomerViewModel.getServiceOrder().deleteOrders(deleteCustomerViewModel.getServiceOrder().getAll().get(), selectedCustomer.getId());
                 deleteCustomerViewModel.getServices().deleteLineById(selectedCustomer.getId());
                 ObservableList<Customer> customers = customersTable.getItems();
                 customers.remove(selectedCustomer);

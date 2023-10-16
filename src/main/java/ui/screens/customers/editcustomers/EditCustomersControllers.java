@@ -2,6 +2,7 @@ package ui.screens.customers.editcustomers;
 
 import common.Constants;
 import jakarta.inject.Inject;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -24,9 +25,9 @@ public class EditCustomersControllers extends BaseScreenController {
     @FXML
     public DatePicker dobField;
     @FXML
-    public TableView customersTable;
+    public TableView<Customer> customersTable;
     @FXML
-    public TableColumn idCustomerColumn;
+    public TableColumn<Customer, String> idCustomerColumn;
     @FXML
     public TableColumn nameCustomerColumn;
     @FXML
@@ -44,7 +45,6 @@ public class EditCustomersControllers extends BaseScreenController {
     public void handleCustomerSelection() {
         Customer selectedCustomer = (Customer) customersTable.getSelectionModel().getSelectedItem();
         if (selectedCustomer != null) {
-            idTxtField.setText(Integer.toString(selectedCustomer.getId()));
             nameField.setText(selectedCustomer.getFirst_name());
             surnameField.setText(selectedCustomer.getLast_name());
             mailField.setText(selectedCustomer.getEmail());
@@ -90,6 +90,12 @@ public class EditCustomersControllers extends BaseScreenController {
     }
 
     public void editClient(ActionEvent actionEvent) {
+        ObservableList<Customer> customers = customersTable.getItems();
+        SelectionModel<Customer> selectionModel = customersTable.getSelectionModel();
+        Customer selectedCustomer = selectionModel.getSelectedItem();
+        editCustomerViewModel.getServices().updateCustomer(selectedCustomer.getId(),editCustomerViewModel.getServices().addCustomer(selectedCustomer.getId(), nameField.getText(), surnameField.getText(), mailField.getText(), phoneField.getText(), dobField.getValue()).get());
+        customers.clear();
+        customers.addAll(editCustomerViewModel.getServices().getAll().get());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(Constants.USER_UPDATED);
         alert.setHeaderText(null);

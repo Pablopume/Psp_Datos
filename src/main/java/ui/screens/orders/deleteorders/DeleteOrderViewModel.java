@@ -33,7 +33,7 @@ public class DeleteOrderViewModel {
     public ReadOnlyObjectProperty<DeleteOrderState> getState(){return state;}
 
     public void loadState() {
-        List<Order> listOrd = services.getAll();
+        List<Order> listOrd = services.getAll().get();
         if (listOrd.isEmpty()) {
             state.set(new DeleteOrderState(null, Constants.THERE_ARE_NO_ORDERS));
 

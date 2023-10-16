@@ -7,7 +7,8 @@ import services.ServicesLogin;
 
 public class ServicesLoginImpl implements ServicesLogin {
     private final LoginDAO dao;
-@Inject
+
+    @Inject
     public ServicesLoginImpl(LoginDAO dao) {
         this.dao = dao;
     }

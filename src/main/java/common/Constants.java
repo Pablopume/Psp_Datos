@@ -76,4 +76,14 @@ public class Constants {
     public static final String THE_ORDER_HAS_BEEN_DELETED = "The order has been deleted.";
     public static final int THE_CUSTOMER_LIST_IS_EMPTY_N =100 ;
     public static final String THE_CUSTOMER_LIST_IS_EMPTY_S ="The customer list is empty" ;
+    public static final String THE_ORDER_LIST_IS_EMPTY ="The order list is empty" ;
+    public static final String THE_CUSTOMER_LIST_IS_EMPTY = "The customer list is empty";
+    public static final String PATH_CUSTOMERS = "pathCustomers";
+    public static final String CREATED_INCORRECTLY = "Created incorrectly";
+    public static final String AN_ERROR_OCCURRED = "An error occurred";
+    public static final String XML_PATH = "xmlPath";
+    public static final String ERROR_WHILE_RETRIEVING_ORDERS = "Error while retrieving orders";
+    public static final String ORDER = "order";
+    public static final String PATH_ORDERS = "pathOrders";
+    public static final String NO_VALID_DATA = "No valid data";
 }

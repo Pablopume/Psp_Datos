@@ -4,10 +4,15 @@
 <?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="500.0" prefWidth="1050.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.screens.orders.listorders.ListOrderController">
     <DatePicker fx:id="datePicker" layoutX="204.0" layoutY="399.0" promptText="Date" />
-    <Label fx:id="nameCustomer" layoutX="420.0" layoutY="8.0" prefHeight="25.0" prefWidth="95.0" text="Customer Name" />
+    <Label fx:id="nameCustomer" layoutX="420.0" layoutY="8.0" prefHeight="25.0" prefWidth="137.0" text="Customer Name">
+    <font>
+        <Font size="16.0" /> <!-- Aquí puedes ajustar el tamaño de fuente a tu preferencia -->
+    </font>
+    </Label>
     <TextField fx:id="customerTextField" layoutX="204.0" layoutY="399.0" prefHeight="25.0" prefWidth="174.0" promptText="Customer" />
 
     <TableView fx:id="customersTable" layoutX="20.0" layoutY="45.0" prefHeight="343.0" prefWidth="326.0">

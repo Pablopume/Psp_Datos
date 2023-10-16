@@ -50,19 +50,19 @@ public class ListOrderController extends BaseScreenController {
         filterOptions();
         customerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue == null || newValue.trim().isEmpty()) {
-                        customersTable.getItems().setAll(listOrderViewModel.getServices().getAll());
+                        customersTable.getItems().setAll(listOrderViewModel.getServices().getAll().get());
                     } else {
                         customersTable.getItems().clear();
-                        customersTable.getItems().setAll(listOrderViewModel.getServices().filteredList(Integer.parseInt(customerTextField.getText())));
+                        customersTable.getItems().setAll(listOrderViewModel.getServices().filteredList(Integer.parseInt(customerTextField.getText())).get());
                     }
                 }
         );
         datePicker.valueProperty().addListener((observableValue, oldValue, newValue) -> {
                     if (newValue == null) {
-                        customersTable.getItems().setAll(listOrderViewModel.getServices().getAll());
+                        customersTable.getItems().setAll(listOrderViewModel.getServices().getAll().get());
                     } else {
                         customersTable.getItems().clear();
-                        customersTable.getItems().setAll(listOrderViewModel.getServices().filteredListDate(datePicker.getValue()));
+                        customersTable.getItems().setAll(listOrderViewModel.getServices().filteredListDate(datePicker.getValue()).get());
                     }
                 }
 
@@ -81,8 +81,8 @@ public class ListOrderController extends BaseScreenController {
         customersTable.setOnMouseClicked(event -> {
                 Order selectedOrder = customersTable.getSelectionModel().getSelectedItem();
             try {
-                ordersTable.getItems().setAll(listOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()));
-                nameCustomer.setText(listOrderViewModel.getServicesCustomer().getNameById(selectedOrder.getCustomer_id()));
+                ordersTable.getItems().setAll(listOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()).get());
+                nameCustomer.setText(listOrderViewModel.getServicesCustomer().getNameById(selectedOrder.getCustomer_id()).get());
             } catch (JAXBException | IOException e) {
                 throw new RuntimeException(e);
             }
