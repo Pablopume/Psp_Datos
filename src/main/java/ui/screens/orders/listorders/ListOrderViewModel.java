@@ -7,6 +7,7 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Data;
 import model.Order;
+import services.ServicesCustomer;
 import services.ServicesDaoXML;
 import services.ServicesOrder;
 
@@ -14,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 @Data
 public class ListOrderViewModel {
+    private final ServicesCustomer servicesCustomer;
     private final ServicesDaoXML servicesDaoXML;
     private final ServicesOrder services;
 
     private final ObjectProperty<ListOrderState> state;
 
     @Inject
-    public ListOrderViewModel(ServicesDaoXML servicesDaoXML, ServicesOrder services) {
+    public ListOrderViewModel(ServicesCustomer servicesCustomer, ServicesDaoXML servicesDaoXML, ServicesOrder services) {
+        this.servicesCustomer = servicesCustomer;
         this.servicesDaoXML = servicesDaoXML;
         this.state = new SimpleObjectProperty<>(new ListOrderState(new ArrayList<>(), null));
         this.services = services;

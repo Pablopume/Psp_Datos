@@ -95,7 +95,6 @@ public class DeleteCustomersController extends BaseScreenController {
             alert.setHeaderText(null);
             alert.setContentText("There are orders created in that customer, do you want to delete them?");
             Optional<ButtonType> result = alert.showAndWait();
-            alert.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
                 deleteCustomerViewModel.getServiceOrder().deleteOrders(deleteCustomerViewModel.getServiceOrder().getAll(), selectedCustomer.getId());
                 deleteCustomerViewModel.getServices().deleteLineById(selectedCustomer.getId());

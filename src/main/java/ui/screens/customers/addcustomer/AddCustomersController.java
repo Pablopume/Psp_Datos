@@ -16,8 +16,6 @@ public class AddCustomersController extends BaseScreenController {
     @FXML
     public TextField nameField;
     @FXML
-    public TextField idTxtField;
-    @FXML
     public TextField phoneField;
     @FXML
     public TextField surnameField;
@@ -69,6 +67,8 @@ public class AddCustomersController extends BaseScreenController {
 
 
     public void addClient(ActionEvent actionEvent) {
+        addCustomerViewModel.getServices().save(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()));
+        customersTable.getItems().add(addCustomerViewModel.getServices().save(nameField.getText(),surnameField.getText(),mailField.getText(),phoneField.getText(),dobField.getValue()));
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(Constants.USER_CREATED);
         alert.setHeaderText(null);

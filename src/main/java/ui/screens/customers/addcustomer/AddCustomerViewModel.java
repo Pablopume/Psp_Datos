@@ -5,12 +5,13 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import lombok.Data;
 import model.Customer;
 import services.ServicesCustomer;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class AddCustomerViewModel {
     private final ServicesCustomer services;
     private final ObjectProperty<AddCustomerState> state;

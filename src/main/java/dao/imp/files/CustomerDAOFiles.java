@@ -7,10 +7,12 @@ import model.Customer;
 import configuration.Configuration;
 import model.Order;
 
-import java.io.IOException;
+import java.io.*;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -31,9 +33,45 @@ public class CustomerDAOFiles implements CustomerDAO {
         }
         return customers;
     }
+    private int getNextCustomerId() {
+        int nextId = 1;
+        try (BufferedReader br = new BufferedReader(new FileReader(Configuration.getInstance().getProperty("pathCustomers")))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length > 0) {
+                    int id = Integer.parseInt(parts[0]);
+                    nextId = id + 1;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return nextId;
+    }
+    public Customer save(String name, String secondName, String email, String phone, LocalDate date) {
+        return new Customer(getNextCustomerId(),name, secondName,email,phone,date );
+    }
 
 
+    public void save(Customer customer) {
+        try {
+            Path path = Paths.get(Configuration.getInstance().getProperty("pathCustomers"));
+            List<String> lines = new ArrayList<>();
+            lines.add(customer.toStringTextFile());
 
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void delete(int idToDelete) {
         try {
             Path path = Paths.get(Configuration.getInstance().getProperty("pathCustomers"));

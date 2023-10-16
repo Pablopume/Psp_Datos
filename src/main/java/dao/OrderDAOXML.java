@@ -11,4 +11,6 @@ public interface OrderDAOXML {
 
     List<OrderXML> getAll() throws IOException, JAXBException;
     List<OrderItemXML> getAll(int id) throws JAXBException, IOException;
+    void delete(int orderId);
+    void save(OrderXML order);
 }

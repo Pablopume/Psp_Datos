@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @AllArgsConstructor
@@ -27,6 +28,7 @@ public class Customer {
     }
 
     public String toStringTextFile() {
-        return id + ";" + first_name + ";" + last_name + ";" + email + ";" + phone + ";" + dob;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return id + ";" + first_name + ";" + last_name + ";" + email + ";" + phone + ";" + dob.format(formatter);
     }
 }

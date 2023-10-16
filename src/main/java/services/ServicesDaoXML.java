@@ -10,4 +10,7 @@ import java.util.List;
 public interface ServicesDaoXML {
     List<OrderXML> getAll() throws IOException, JAXBException;
     List<OrderItemXML> getAll(int id) throws JAXBException, IOException;
+
+    void delete(int orderId);
+     void writeToXML(OrderXML order);
 }

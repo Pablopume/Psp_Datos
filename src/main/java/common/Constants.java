@@ -74,4 +74,6 @@ public class Constants {
     public static final String BTN_OK = "btn-ok";
     public static final String ORDER_DELETED = "Order deleted";
     public static final String THE_ORDER_HAS_BEEN_DELETED = "The order has been deleted.";
+    public static final int THE_CUSTOMER_LIST_IS_EMPTY_N =100 ;
+    public static final String THE_CUSTOMER_LIST_IS_EMPTY_S ="The customer list is empty" ;
 }

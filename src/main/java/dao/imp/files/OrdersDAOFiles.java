@@ -63,9 +63,28 @@ public class OrdersDAOFiles implements OrdersDAO {
         }
     }
 
-    public Order save(int id, LocalDateTime date, int customer_id, int table_id) {
-        return new Order(id, date, customer_id, table_id);
+    public Order save(LocalDateTime date, int customer_id, int table_id) {
+        return new Order(getNextOrderId(), date, customer_id, table_id);
     }
+
+    private int getNextOrderId() {
+        int nextId = 1;
+        try (BufferedReader br = new BufferedReader(new FileReader(Configuration.getInstance().getProperty("pathOrders")))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(";");
+                if (parts.length > 0) {
+                    int id = Integer.parseInt(parts[0]);
+                    nextId = id + 1;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return nextId;
+    }
+
 
     public void save(Order order) {
         try {

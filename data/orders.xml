@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <orders>
     <order>
         <id>1</id>
@@ -27,6 +27,24 @@
         </order_item>
         <order_item>
             <menu_item>Coffee</menu_item>
+            <quantity>2</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>4</id>
+        <order_item>
+            <menu_item>Apple</menu_item>
+            <quantity>2</quantity>
+        </order_item>
+    </order>
+    <order>
+        <id>7</id>
+        <order_item>
+            <menu_item>Pineapple</menu_item>
+            <quantity>4</quantity>
+        </order_item>
+        <order_item>
+            <menu_item>Croissant</menu_item>
             <quantity>2</quantity>
         </order_item>
     </order>

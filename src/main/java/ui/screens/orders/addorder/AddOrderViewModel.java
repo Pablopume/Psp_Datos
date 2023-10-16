@@ -5,20 +5,23 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import lombok.Getter;
+import lombok.Data;
 import model.Order;
+import services.ServicesDaoXML;
 import services.ServicesOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class AddOrderViewModel {
-    @Getter
+
+    private final ServicesDaoXML servicesDaoXML;
     private final ServicesOrder services;
     private final ObjectProperty<AddOrderState> state;
 
     @Inject
-    public AddOrderViewModel(ServicesOrder services) {
+    public AddOrderViewModel(ServicesDaoXML servicesDaoXML, ServicesOrder services) {
+        this.servicesDaoXML = servicesDaoXML;
         this.state = new SimpleObjectProperty<>(new AddOrderState(new ArrayList<>(), null));
         this.services = services;
 

@@ -9,7 +9,7 @@
 
     <TextField fx:id="tableFIeld" layoutX="27.0" layoutY="224.0" promptText="Table Id" />
     <DatePicker fx:id="dateField" layoutX="27.0" layoutY="127.0" prefHeight="25.0" prefWidth="159.0" promptText="Order's Date" />
-    <Button layoutX="27.0" layoutY="284.0" mnemonicParsing="false" onAction="#editOrder" text="Update Customer" />
+    <Button layoutX="27.0" layoutY="284.0" mnemonicParsing="false" onAction="#editOrder" text="Update Order" />
     <TableView fx:id="customersTable" layoutX="284.0" layoutY="38.0" prefHeight="343.0" prefWidth="345.0">
         <columns>
 

@@ -5,21 +5,24 @@ import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import lombok.Data;
 import model.Order;
+import services.ServicesDaoXML;
 import services.ServicesOrder;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 public class DeleteOrderViewModel {
-
+    private final ServicesDaoXML servicesDaoXML;
     private final ServicesOrder services;
     private final ObjectProperty<DeleteOrderState> state;
 
 
 
     @Inject
-    public DeleteOrderViewModel(ServicesOrder services) {
+    public DeleteOrderViewModel(ServicesDaoXML servicesDaoXML, ServicesOrder services) {
+        this.servicesDaoXML = servicesDaoXML;
         this.state = new SimpleObjectProperty<>(new DeleteOrderState(new ArrayList<>(), null));
         this.services = services;
 

@@ -26,4 +26,14 @@ private final OrderDAOXML dao;
         return dao.getAll(id);
     }
 
+    @Override
+    public void delete(int orderId) {
+        dao.delete(orderId);
+    }
+
+    @Override
+    public void writeToXML(OrderXML order) {
+        dao.save(order);
+    }
+
 }

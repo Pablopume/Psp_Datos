@@ -2,20 +2,24 @@ package ui.screens.orders.deleteorders;
 
 import common.Constants;
 import jakarta.inject.Inject;
+import jakarta.xml.bind.JAXBException;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Order;
+import model.xml.OrderItemXML;
+import model.xml.OrderXML;
 import ui.screens.common.BaseScreenController;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class DeleteOrderController extends BaseScreenController {
     @FXML
-    public TableView<Order> customersTable;
+    public TableView<Order> ordersTable;
     @FXML
     public TableColumn<Order, Integer> idOrder;
     @FXML
@@ -25,6 +29,10 @@ public class DeleteOrderController extends BaseScreenController {
     public TableColumn<Order, Integer> customerId;
     @FXML
     public TableColumn<Order, String > tableId;
+    public Button buttonDelete;
+    public TableView<OrderItemXML> ordersXMLTable;
+    public TableColumn<OrderItemXML, String> menuItem;
+    public TableColumn<OrderItemXML, Integer> quantity;
     @Inject
     DeleteOrderViewModel deleteOrderViewModel;
 
@@ -33,7 +41,8 @@ public class DeleteOrderController extends BaseScreenController {
         orderDate.setCellValueFactory(new PropertyValueFactory<>(Constants.DATE));
         customerId.setCellValueFactory(new PropertyValueFactory<>(Constants.CUSTOMER_ID));
         tableId.setCellValueFactory(new PropertyValueFactory<>(Constants.TABLE_ID));
-
+        menuItem.setCellValueFactory(new PropertyValueFactory<>("menuItem"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         deleteOrderViewModel.getState().addListener((observableValue, oldValue, newValue) -> {
 
@@ -41,13 +50,21 @@ public class DeleteOrderController extends BaseScreenController {
                         getPrincipalController().sacarAlertError(newValue.getError());
                     }
                     if (newValue.getListOrders() != null) {
-                        customersTable.getItems().clear();
-                        customersTable.getItems().setAll(newValue.getListOrders());
+                        ordersTable.getItems().clear();
+                        ordersTable.getItems().setAll(newValue.getListOrders());
                     }
 
                 }
 
         );
+        ordersTable.setOnMouseClicked(event -> {
+            Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
+            try {
+                ordersXMLTable.getItems().setAll(deleteOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()));
+            } catch (JAXBException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
         deleteOrderViewModel.voidState();
 
     }
@@ -57,12 +74,47 @@ public class DeleteOrderController extends BaseScreenController {
     }
 
     public void deleteOrder(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(Constants.ORDER_DELETED);
-        alert.setHeaderText(null);
-        alert.setContentText(Constants.THE_ORDER_HAS_BEEN_DELETED);
-        alert.showAndWait();
+        SelectionModel<Order> selectionModel = ordersTable.getSelectionModel();
+        Order selectedOrder = selectionModel.getSelectedItem();
+        if (!deleteOrderViewModel.getServices().orderContained(selectedOrder.getId())) {
 
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirm delete");
+            confirmationAlert.setHeaderText("Delete customer");
+            confirmationAlert.setContentText("Are you sure you want to delete this Customer?");
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                deleteOrderViewModel.getServices().delete(selectedOrder.getId());
+                ObservableList<Order> orders = ordersTable.getItems();
+                orders.remove(selectedOrder);
+                Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+                successAlert.setTitle("Customer deleted");
+                successAlert.setHeaderText(null);
+                successAlert.setContentText("The Customer has been deleted");
+                successAlert.showAndWait();
+            }
+        } else if (deleteOrderViewModel.getServices().orderContained(selectedOrder.getId())) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("You can't delete");
+            alert.setHeaderText(null);
+            alert.setContentText("There are order items created in that order, do you want to delete them?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                deleteOrderViewModel.getServices().deleteOrders(deleteOrderViewModel.getServices().getAll(), selectedOrder.getId());
+                deleteOrderViewModel.getServicesDaoXML().delete(selectedOrder.getId());
+                ObservableList<OrderItemXML> orderItemXMLS=ordersXMLTable.getItems();
+                orderItemXMLS.clear();
+                ObservableList<Order> orders = ordersTable.getItems();
+                orders.remove(selectedOrder);
+            }
+        } else {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete cancelled");
+            alert.setHeaderText(null);
+            alert.setContentText("You cancelled the delete");
+            alert.show();
+        }
+    }
     }
 
-}
+

@@ -8,13 +8,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Order;
 import model.xml.OrderItemXML;
-import model.xml.OrderXML;
 import ui.screens.common.BaseScreenController;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class ListOrderController extends BaseScreenController {
     @FXML
@@ -37,6 +34,7 @@ public class ListOrderController extends BaseScreenController {
     public TableView<OrderItemXML> ordersTable;
     public TableColumn<OrderItemXML, String> menuItem;
     public TableColumn<OrderItemXML, Integer> quantity;
+    public Label nameCustomer;
     @Inject
     ListOrderViewModel listOrderViewModel;
 
@@ -84,6 +82,7 @@ public class ListOrderController extends BaseScreenController {
                 Order selectedOrder = customersTable.getSelectionModel().getSelectedItem();
             try {
                 ordersTable.getItems().setAll(listOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()));
+                nameCustomer.setText(listOrderViewModel.getServicesCustomer().getNameById(selectedOrder.getCustomer_id()));
             } catch (JAXBException | IOException e) {
                 throw new RuntimeException(e);
             }
