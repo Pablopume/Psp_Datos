@@ -9,8 +9,9 @@ import java.util.List;
 public interface ServicesOrder {
     List<Order> getAll();
     void writeToFile(Order order);
-    String orderToFileLine(Order order);
     Order createOrder(int id, LocalDateTime date, int customer_id, int table_id);
     List<Order> filteredList(int id);
     List<Order> filteredListDate(LocalDate localDate);
+    void delete(int idToDelete);
+    void deleteOrders(List<Order> listOrd, int id);
 }

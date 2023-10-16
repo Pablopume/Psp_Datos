@@ -32,24 +32,9 @@ public class CustomerDAOFiles implements CustomerDAO {
         return customers;
     }
 
-    public static void createFile() {
-        String nombreArchivo = "data/listaElementos";
 
-        try {
-            // Obtener el sistema de archivos por defecto
-            Path archivo = FileSystems.getDefault().getPath(nombreArchivo);
 
-            // Intentar crear el archivo, pero solo si no existe
-            Files.createFile(archivo);
-            System.out.println("Archivo creado con éxito: " + nombreArchivo);
-        } catch (FileAlreadyExistsException e) {
-            System.out.println("El archivo ya existe: " + nombreArchivo);
-        } catch (IOException e) {
-            System.err.println("Error al crear el archivo: " + e.getMessage());
-        }
-    }
-
-    public void deleteLineById(int idToDelete) {
+    public void delete(int idToDelete) {
         try {
             Path path = Paths.get(Configuration.getInstance().getProperty("pathCustomers"));
             List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
@@ -68,29 +53,7 @@ public class CustomerDAOFiles implements CustomerDAO {
         }
     }
 
-    public static List readFile(String file) throws IOException {
-        if (!Files.exists(FileSystems.getDefault().getPath(file))) {
-            createFile();
-        }
-        ArrayList aux = null;
-        try (Stream<String> lines = Files.lines(Path.of(file))) {
-            lines.forEach(line -> {
-                Customer customer = new Customer(line);
-                aux.add(customer);
-            });
-        }
-        return aux;
-    }
 
-    public boolean orderContained(int id, List<Order> orders) {
-        boolean contained = false;
-        for (int i = 0; i < orders.size(); i++) {
-            if (id == orders.get(i).getCustomer_id()) {
-                contained = true;
-            }
-        }
-        return contained;
-    }
 
 
 }

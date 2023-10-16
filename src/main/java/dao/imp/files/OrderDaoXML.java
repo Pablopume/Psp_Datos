@@ -6,6 +6,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
+import model.xml.OrderItemXML;
 import model.xml.OrderXML;
 import model.xml.OrdersXML;
 
@@ -13,7 +14,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class OrderDaoXML implements OrderDAOXML {
     public List<OrderXML> getAll() throws IOException, JAXBException {
@@ -24,5 +28,21 @@ public class OrderDaoXML implements OrderDAOXML {
         return orders.getOrderList();
     }
 
+    public List<OrderItemXML> getAll(int id) throws JAXBException, IOException {
+        List<OrderXML> allOrders = getAll();
+
+        // Encuentra el OrderXML con el ID dado
+        Optional<OrderXML> matchingOrder = allOrders.stream()
+                .filter(order -> order.getId() == id)
+                .findFirst();
+
+        if (matchingOrder.isPresent()) {
+            // Obtiene los OrderItemXML del OrderXML encontrado
+            return matchingOrder.get().getOrderItem();
+        } else {
+            // Maneja el caso en que no se encuentra un OrderXML con el ID dado
+            return new ArrayList<>();
+        }
+    }
 
 }

@@ -89,15 +89,27 @@ public class DeleteCustomersController extends BaseScreenController {
                 successAlert.setContentText("The Customer has been deleted");
                 successAlert.showAndWait();
             }
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        } else if (deleteCustomerViewModel.getServices().orderContained(selectedCustomer.getId(), deleteCustomerViewModel.getServiceOrder().getAll())) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("You can't delete");
             alert.setHeaderText(null);
-            alert.setContentText("There are orders created in that customer, first delete the orders.");
+            alert.setContentText("There are orders created in that customer, do you want to delete them?");
+            Optional<ButtonType> result = alert.showAndWait();
             alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                deleteCustomerViewModel.getServiceOrder().deleteOrders(deleteCustomerViewModel.getServiceOrder().getAll(), selectedCustomer.getId());
+                deleteCustomerViewModel.getServices().deleteLineById(selectedCustomer.getId());
+                ObservableList<Customer> customers = customersTable.getItems();
+                customers.remove(selectedCustomer);
+            }
+        } else {
+            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Delete cancelled");
+            alert.setHeaderText(null);
+            alert.setContentText("You cancelled the delete");
+            alert.show();
         }
-
-
     }
 
 }
+

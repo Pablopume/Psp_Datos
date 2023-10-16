@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface CustomerDAO {
     List<Customer> getAll();
-    void deleteLineById(int id);
-    boolean orderContained(int id, List<Order> orders);
+    void delete(int id);
 }
 

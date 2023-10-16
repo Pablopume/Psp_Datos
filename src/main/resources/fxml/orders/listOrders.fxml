@@ -19,12 +19,11 @@
         </columns>
     </TableView>
 
-    <TableView layoutX="578.0" layoutY="56.0" prefHeight="291.0" prefWidth="290.0">
+    <TableView fx:id="ordersTable" layoutX="578.0" layoutY="56.0" prefHeight="291.0" prefWidth="175.0">
         <columns>
-            <TableColumn prefWidth="33.0" text="Id" />
-            <TableColumn prefWidth="95.0" text="Name" />
-            <TableColumn prefWidth="84.0" text="Price" />
-            <TableColumn prefWidth="77.0" text="Description" />
+            <TableColumn fx:id="menuItem" prefWidth="100.0" text="Menu item" />
+            <TableColumn fx:id="quantity" prefWidth="75.0" text="Quantity" />
+
         </columns>
     </TableView>
    <ComboBox fx:id="comboBox" layoutX="20.0" layoutY="399.0" prefWidth="150.0" promptText="Filter">

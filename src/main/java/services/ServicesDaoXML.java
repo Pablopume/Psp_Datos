@@ -1,4 +1,4 @@
-package dao;
+package services;
 
 import jakarta.xml.bind.JAXBException;
 import model.xml.OrderItemXML;
@@ -7,8 +7,7 @@ import model.xml.OrderXML;
 import java.io.IOException;
 import java.util.List;
 
-public interface OrderDAOXML {
-
+public interface ServicesDaoXML {
     List<OrderXML> getAll() throws IOException, JAXBException;
     List<OrderItemXML> getAll(int id) throws JAXBException, IOException;
 }

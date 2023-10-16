@@ -21,23 +21,33 @@ public class ServicesOrderImpl implements ServicesOrder {
 
     @Override
     public void writeToFile(Order order) {
-        ordersDAO.writeToFile(order);
+        ordersDAO.save(order);
     }
 
-    @Override
-    public String orderToFileLine(Order order) {
-        return ordersDAO.orderToFileLine(order);
+
+    public Order createOrder(int id, LocalDateTime date, int customer_id, int table_id){
+        return ordersDAO.save(id,date,customer_id,table_id);
     }
-   public Order createOrder(int id, LocalDateTime date, int customer_id, int table_id){
-        return ordersDAO.createOrder(id,date,customer_id,table_id);
-   }
-public List<Order> filteredList(int id){
-        return ordersDAO.filteredList(id);
-}
+    public List<Order> filteredList(int id){
+        return ordersDAO.get(id);
+    }
 
     @Override
     public List<Order> filteredListDate(LocalDate localDate) {
-        return ordersDAO.filteredListDate(localDate);
+        return ordersDAO.get(localDate);
     }
+
+    @Override
+    public void delete(int idToDelete) {
+        ordersDAO.delete(idToDelete);
+    }
+    public void deleteOrders(List<Order> listOrd, int id) {
+        listOrd.forEach(order -> {
+            if (id == order.getCustomer_id()) {
+                ordersDAO.delete(order.getId());
+            }
+        });
+    }
+
 
 }

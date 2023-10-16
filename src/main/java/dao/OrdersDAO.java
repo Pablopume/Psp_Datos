@@ -8,10 +8,10 @@ import java.util.List;
 
 public interface OrdersDAO {
     List<Order> getAll();
-    void writeToFile(Order order);
-    String orderToFileLine(Order order);
-    Order createOrder(int id, LocalDateTime date, int customer_id, int table_id);
-    List<Order> filteredList(int id);
-    List<Order> filteredListDate(LocalDate localDate);
+    void save(Order order);
+    Order save(int id, LocalDateTime date, int customer_id, int table_id);
+    List<Order> get(int id);
+    List<Order> get(LocalDate localDate);
+    void delete(int idToDelete);
 
 }

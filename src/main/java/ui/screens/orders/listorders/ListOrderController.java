@@ -2,12 +2,16 @@ package ui.screens.orders.listorders;
 
 import common.Constants;
 import jakarta.inject.Inject;
+import jakarta.xml.bind.JAXBException;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Order;
+import model.xml.OrderItemXML;
+import model.xml.OrderXML;
 import ui.screens.common.BaseScreenController;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +34,9 @@ public class ListOrderController extends BaseScreenController {
     public DatePicker datePicker;
     @FXML
     public ComboBox<String> comboBox;
+    public TableView<OrderItemXML> ordersTable;
+    public TableColumn<OrderItemXML, String> menuItem;
+    public TableColumn<OrderItemXML, Integer> quantity;
     @Inject
     ListOrderViewModel listOrderViewModel;
 
@@ -40,6 +47,8 @@ public class ListOrderController extends BaseScreenController {
         orderDate.setCellValueFactory(new PropertyValueFactory<>(Constants.DATE));
         customerId.setCellValueFactory(new PropertyValueFactory<>(Constants.CUSTOMER_ID));
         tableId.setCellValueFactory(new PropertyValueFactory<>(Constants.TABLE_ID));
+        menuItem.setCellValueFactory(new PropertyValueFactory<>("menuItem"));
+        quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         filterOptions();
         customerTextField.textProperty().addListener((observable, oldValue, newValue) -> {
                     if (newValue == null || newValue.trim().isEmpty()) {
@@ -71,6 +80,15 @@ public class ListOrderController extends BaseScreenController {
                     }
                 }
         );
+        customersTable.setOnMouseClicked(event -> {
+                Order selectedOrder = customersTable.getSelectionModel().getSelectedItem();
+            try {
+                ordersTable.getItems().setAll(listOrderViewModel.getServicesDaoXML().getAll(selectedOrder.getId()));
+            } catch (JAXBException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         listOrderViewModel.voidState();
 
     }
@@ -87,6 +105,8 @@ public class ListOrderController extends BaseScreenController {
             }
         });
     }
+
+
 
     @Override
     public void principalLoaded() {

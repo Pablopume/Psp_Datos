@@ -12,8 +12,7 @@ import model.xml.OrderItemXML;
 import model.xml.OrderXML;
 import model.xml.OrdersXML;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,57 +29,75 @@ import java.util.stream.Collectors;
 public class OrdersDAOFiles implements OrdersDAO {
     @Override
     public List<Order> getAll() {
-        Path orderrFile = Paths.get(Configuration.getInstance().getProperty("pathOrders"));
+        Path orderFile = Paths.get(Configuration.getInstance().getProperty("pathOrders"));
         ArrayList<Order> orders = new ArrayList<>();
-        try {
-            List<String> fileContent = Files.readAllLines(orderrFile);
-            fileContent.forEach(line -> orders.add(new Order(line)));
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(orderFile.toFile()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                orders.add(new Order(line));
+            }
         } catch (IOException e) {
             log.error(e.getMessage(), e);
         }
+
         return orders;
     }
 
-    public Order createOrder(int id, LocalDateTime date, int customer_id, int table_id) {
+    public void delete(int idToDelete) {
+        try {
+            Path path = Paths.get(Configuration.getInstance().getProperty("pathOrders"));
+            List<String> lines = Files.readAllLines(path, StandardCharsets.UTF_8);
+            List<String> updatedLines = new ArrayList<>();
+            for (String line : lines) {
+                String[] parts = line.split(";");
+                int currentId = Integer.parseInt(parts[0]);
+                if (currentId != idToDelete) {
+                    updatedLines.add(line);
+                }
+            }
+            Files.write(path, updatedLines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
 
-        return new Order(id, date, customer_id, table_id);
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void writeToFile(Order order) {
+    public Order save(int id, LocalDateTime date, int customer_id, int table_id) {
+        return new Order(id, date, customer_id, table_id);
+    }
+
+    public void save(Order order) {
         try {
             Path path = Paths.get(Configuration.getInstance().getProperty("pathOrders"));
             List<String> lines = new ArrayList<>();
             lines.add(order.toStringTextFile());
-            Files.write(path, lines, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
+
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(path.toFile(), true))) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
         } catch (IOException e) {
-            e.printStackTrace(); // Manejo de errores, puedes personalizarlo según tu necesidad
+            e.printStackTrace();
         }
     }
 
-    public List<Order> filteredList(int id) {
+    public List<Order> get(int id) {
         List<Order> list = this.getAll();
         return list.stream()
                 .filter(order -> order.getCustomer_id() == id)
                 .toList();
     }
 
-    public List<Order> filteredListDate(LocalDate localDate) {
+    public List<Order> get(LocalDate localDate) {
         List<Order> list = this.getAll();
         return list.stream()
                 .filter(order -> order.getDate().toLocalDate().equals(localDate))
                 .toList();
     }
 
-    public String orderToFileLine(Order order) {
-        StringBuilder lineBuilder = new StringBuilder();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        lineBuilder.append(order.getId()).append(";");
-        lineBuilder.append(order.getDate().format(formatter)).append(";");
-        lineBuilder.append(order.getCustomer_id()).append(";");
-        lineBuilder.append(order.getTable_id());
-        return lineBuilder.toString();
-    }
 
 }
-

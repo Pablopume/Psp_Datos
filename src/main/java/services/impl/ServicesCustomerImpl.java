@@ -26,11 +26,16 @@ public class ServicesCustomerImpl implements ServicesCustomer {
 
     @Override
     public void deleteLineById(int id) {
-        customerDAO.deleteLineById(id);
+        customerDAO.delete(id);
     }
 
-    @Override
     public boolean orderContained(int id, List<Order> orders) {
-        return customerDAO.orderContained(id,orders);
+        for (int i = 0; i < orders.size(); i++) {
+            if (id == orders.get(i).getCustomer_id()) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }
