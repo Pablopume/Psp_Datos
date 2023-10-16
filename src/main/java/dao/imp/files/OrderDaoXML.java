@@ -30,17 +30,13 @@ public class OrderDaoXML implements OrderDAOXML {
 
     public List<OrderItemXML> getAll(int id) throws JAXBException, IOException {
         List<OrderXML> allOrders = getAll();
-
-        // Encuentra el OrderXML con el ID dado
         Optional<OrderXML> matchingOrder = allOrders.stream()
                 .filter(order -> order.getId() == id)
                 .findFirst();
 
         if (matchingOrder.isPresent()) {
-            // Obtiene los OrderItemXML del OrderXML encontrado
             return matchingOrder.get().getOrderItem();
         } else {
-            // Maneja el caso en que no se encuentra un OrderXML con el ID dado
             return new ArrayList<>();
         }
     }
